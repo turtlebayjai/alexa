@@ -25,9 +25,9 @@ def get_top_sites(country_code=None, headers=None):
         response = requests.get(URL, headers=headers, timeout=5.0)
     except requests.exceptions.ReadTimeout:
         raise ValueError("Request timed out. Possible invalid country code: %s" % country_code)
-
+    
+    top_sites = []
     if response.status_code == 200:
-        top_sites = []
         html_body = response.text
         div_start = html_body.find('<div class="tr site-listing">', 0)
         while div_start != -1:
@@ -35,9 +35,10 @@ def get_top_sites(country_code=None, headers=None):
             if link:
                 top_sites.append(link)
             div_start = html_body.find('<div class="tr site-listing">', div_start + 1)
-        return top_sites
     else:
         raise ValueError("Something went wrong. HTTP status code: " % str(response.status_code))
+    
+    return top_sites
 
 
 def _extract_link_from_div(text, div_start):

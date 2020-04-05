@@ -2,43 +2,29 @@ import requests
 
 BASE_URL="https://www.alexa.com/topsites"
 
-"""
-Structure of a top site entry:
-
-                <div class="tr site-listing">
-                  <div class="td">3</div>     
-                  <div class="td DescriptionCell">
-                    <p class="">
-                        <a href="/siteinfo/tmall.com">Tmall.com</a>                
-                    </p>
-                  </div>
-                   <div class="td right"><p>6:44</p></div>
-                   <div class="td right"><p>2.88</p></div>
-                   <div class="td right"><p>0.90%</p></div>
-                   <div class="td right"><p>4,592</p></div>
-                </div>
-"""
-
-
-def get_top_sites(country_code=None):
-    """ 
-    Returns a list of top 50 websites from alexa.com 
+def get_top_sites(country_code=None, headers=None):
+    """Returns a list of top 50 websites from alexa.com. 
   
-    Parameters: 
-    country_code (string): Optional two-letter code, ex. "US". Defaults to global results.
-
+    Args:
+        country_code (string): two-letter code, ex. "US" (default global).
+        headers (dict): optional headers for HTTP request (default None).
+    
     Returns: 
-    list of strings: Top 50 websites, ordered by rank. 
-                     Websites are NOT prefixed with 'https://www.' 
-    """
+        list of strings: the top 50 websites ordered by rank.
 
+    Raises:
+        ValueError: timeout, invalid country_code, HTTP status not 200.
+    """
     if country_code:
         URL = BASE_URL+"/countries/"+country_code
     else:
         URL = BASE_URL
 
-    print("Requesting from", URL, "...") 
-    response = requests.get(URL, timeout=3.0)
+    print("Requesting from", URL, "...")
+    try:
+        response = requests.get(URL, headers=headers, timeout=5.0)
+    except requests.exceptions.ReadTimeout:
+        raise ValueError("Request timed out. Possible invalid country code: %s" % country_code)
 
     if response.status_code == 200:
         top_sites = []
@@ -51,8 +37,7 @@ def get_top_sites(country_code=None):
             div_start = html_body.find('<div class="tr site-listing">', div_start + 1)
         return top_sites
     else:
-        error_message = "Something went wrong. HTTP status code: " + str(response.status_code)
-        raise ValueError(error_message)
+        raise ValueError("Something went wrong. HTTP status code: " % str(response.status_code))
 
 
 def _extract_link_from_div(text, div_start):

@@ -1,6 +1,7 @@
 import requests
 
-BASE_URL="https://www.alexa.com/topsites"
+_BASE_URL="https://www.alexa.com/topsites"
+
 
 def get_top_sites(country_code=None, headers=None):
     """Returns a list of top 50 websites from alexa.com. 
@@ -16,11 +17,10 @@ def get_top_sites(country_code=None, headers=None):
         ValueError: timeout, invalid country_code, HTTP status not 200.
     """
     if country_code:
-        URL = BASE_URL+"/countries/"+country_code
+        URL = "%s/countries/%s" % (_BASE_URL, country_code)
     else:
-        URL = BASE_URL
-
-    print("Requesting from", URL, "...")
+        URL = _BASE_URL
+    print("Requesting from %s ..." % URL)
     try:
         response = requests.get(URL, headers=headers, timeout=5.0)
     except requests.exceptions.ReadTimeout:
@@ -32,14 +32,11 @@ def get_top_sites(country_code=None, headers=None):
         div_start = html_body.find('<div class="tr site-listing">', 0)
         while div_start != -1:
             link = _extract_link_from_div(html_body, div_start)
-            if link:
-                top_sites.append(link)
+            if link: top_sites.append(link)
             div_start = html_body.find('<div class="tr site-listing">', div_start + 1)
     else:
-        raise ValueError("Something went wrong. HTTP status code: " % str(response.status_code))
-    
+        raise ValueError("Something went wrong. HTTP status code: %d" % response.status_code)    
     return top_sites
-
 
 def _extract_link_from_div(text, div_start):
     element_start = text.find('<a href=', div_start)

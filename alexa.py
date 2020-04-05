@@ -10,7 +10,7 @@ def get_top_sites(country_code=None, headers=None):
         country_code (string): two-letter code, ex. "US" (default global).
         headers (dict): optional headers for HTTP request (default None).
 
-    Returns: 
+    Returns:
         list of strings: the top 50 websites ordered by rank.
 
     Raises:

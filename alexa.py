@@ -15,20 +15,22 @@ def get_top_sites(country_code=None, headers=None):
         ValueError: timeout, invalid country_code, HTTP status not 200.
     """
     if country_code:
-        url = "%s/countries/%s" % (_BASE_URL, country_code)
+        url = f"{_BASE_URL}/countries/{country_code}"
     else:
         url = _BASE_URL
 
-    print("Requesting from %s ..." % url)
+    print(f"Requesting from {url} ...")
     try:
         response = requests.get(url, headers=headers, timeout=5.0)
     except requests.exceptions.ReadTimeout:
         raise ValueError(
-            "Request timed out. Possible invalid country code: %s" % country_code)
+            f"Request timed out. Possible invalid country code: {country_code}"
+        )
     else:
         if response.status_code != 200:
             raise ValueError(
-                "Something went wrong. HTTP status code: %d" % response.status_code)
+                f"Something went wrong. HTTP status code: {response.status_code}"
+            )
 
     sel = scrapy.Selector(text=response.text)
     sites = sel.css("div.site-listing a::text").extract()

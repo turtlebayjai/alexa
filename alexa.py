@@ -24,11 +24,13 @@ def get_top_sites(country_code=None, headers=None):
         response = requests.get(url, headers=headers, timeout=5.0)
     except requests.exceptions.ReadTimeout:
         raise ValueError(
-            f"Request timed out. Possible invalid country code: {country_code}")
+            f"Request timed out. Possible invalid country code: {country_code}"
+        )
     else:
         if response.status_code != 200:
             raise ValueError(
-                f"Something went wrong. HTTP status code: {response.status_code}")
+                f"Something went wrong. HTTP status code: {response.status_code}"
+            )
 
     sel = scrapy.Selector(text=response.text)
     sites = sel.css("div.site-listing a::text").extract()

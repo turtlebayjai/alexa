@@ -1,2 +1,2 @@
 # data_requests
-Utilities for accessing various APIs
+utilities for accessing various APIs

@@ -1,5 +1,5 @@
 # alexa
-utilities for [alexa site tools](https://www.alexa.com/)
+utility for accessing [alexa site tools](https://www.alexa.com/)
 
 ## [top sites](https://www.alexa.com/topsites)
 * **get_sites**: rankings globally or by country

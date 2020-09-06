@@ -12,7 +12,7 @@ def get_sites(country_code=None):
     Args:
         country_code (string): two-letter code, ex. "US" (default global).
     Returns:
-        list of strings, or None: top websites ordered by rank, 
+        list of strings, or None: top websites ordered by rank,
         (None if invalid country_code).
     """
     if country_code:

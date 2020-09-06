@@ -1,5 +1,3 @@
-# data_requests
-utilities for various APIs
-
-### [alexa](https://www.alexa.com/topsites)
+# alexa
+utilities for [alexa site rankings](https://www.alexa.com/topsites)
 * get_top_sites

@@ -7,6 +7,7 @@ from alexa import BASE_URL, helpers
 
 URL = f"{BASE_URL}/topsites"
 
+
 def get_sites(country_code=None):
     """Returns an ordered list of top websites from alexa.com.
     Args:

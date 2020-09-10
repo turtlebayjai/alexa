@@ -1,3 +1,4 @@
+from functools import lru_cache
 import logging
 import requests
 import scrapy
@@ -5,7 +6,6 @@ import scrapy
 from alexa import BASE_URL, helpers
 
 URL = f"{BASE_URL}/topsites"
-
 
 def get_sites(country_code=None):
     """Returns an ordered list of top websites from alexa.com.
@@ -30,6 +30,7 @@ def get_sites(country_code=None):
     return top_sites
 
 
+@lru_cache(maxsize=1)
 def get_country_dictionary():
     """Returns a dictionary of country_names and their country_codes."""
     url = f"{URL}/countries"

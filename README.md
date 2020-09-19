@@ -8,6 +8,7 @@ utility for accessing [alexa site tools](https://www.alexa.com/)
 * **get_country_name**: search for country name by code
 
 ## [site info](https://www.alexa.com/siteinfo)
+* **get_competitors**: competitor websites
 
 ## [similar sites](https://www.alexa.com/find-similar-sites)
 

@@ -14,7 +14,7 @@ def get_competitors(website):
     Returns:
         list of strings, or None: competitor websites.
     """
-    formatted = helpers.format_website_input(website)
+    formatted = helpers.format_website_string(website)
     url = f"{URL}/{formatted}"
     response = helpers.get_response(url)
     sel = scrapy.Selector(text=response.text)

@@ -13,7 +13,7 @@ def get_response(url, headers=None, params=None, timeout=5.0):
     return response
 
 
-def format_website_input(website):
+def format_website_string(website):
     """Returns a formatted website string to be used for siteinfo.
     Args:
         website (string): user-supplied.

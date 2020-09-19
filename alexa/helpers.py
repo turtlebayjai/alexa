@@ -10,6 +10,7 @@ def get_response(url, headers=None, params=None, timeout=5.0):
         raise ValueError(
             f"Something went wrong. HTTP status code: {response.status_code}"
         )
+    logging.info(f"Successful response from {url}")
     return response
 
 

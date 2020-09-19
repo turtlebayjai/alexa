@@ -11,6 +11,4 @@ utility for accessing [alexa site tools](https://www.alexa.com/)
 * **get_competitors**: competitor websites
 * **get_similar_sites**: similar websites and overlap scores
 
-## [similar sites](https://www.alexa.com/find-similar-sites)
-
 ## [popular articles](https://www.alexa.com/popular-articles)

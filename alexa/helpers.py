@@ -11,3 +11,18 @@ def get_response(url, headers=None, params=None, timeout=5.0):
             f"Something went wrong. HTTP status code: {response.status_code}"
         )
     return response
+
+
+def format_website_input(website):
+    """Returns a formatted website string to be used for siteinfo.
+    Args:
+        website (string): user-supplied.
+    Returns:
+        string: lower-case, prefixes removed.
+    """
+    formatted = website.lower()
+    prefixes = ["https://", "http://", "www."]
+    for prefix in prefixes:
+        if formatted.startswith(prefix):
+            formatted = formatted[len(prefix) :]
+    return formatted

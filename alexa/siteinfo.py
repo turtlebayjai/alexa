@@ -97,6 +97,22 @@ def get_top_search_terms(website):
     return top_terms
 
 
+def get_top_industry_topics(website):
+    """Returns top industry topics that this website or competitors
+        published articles on.
+    Args:
+        website (string): example - "mysite.com"
+    Returns:
+        list (string): top industry topics
+    """
+    response = _get_siteinfo(website)
+    sel = scrapy.Selector(text=response.text)
+    topics = sel.css(
+        "div#card_mini_topics div.TopicList > div.Showme > span::text"
+    ).extract()
+    return topics
+
+
 def _get_siteinfo(website):
     """Returns response object after properly formatting website string."""
     formatted = helpers.format_website_string(website)

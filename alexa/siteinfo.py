@@ -74,6 +74,29 @@ def get_avg_user_time(website):
     return seconds
 
 
+def get_top_search_terms(website):
+    """Returns top search terms driving traffic to the website,
+        with corresponding percentage of search traffic from the term.
+    Args:
+        website (string): example - "mysite.com"
+    Returns:
+        dict (string: float): top search terms and corresponding percentages
+    """
+    response = _get_siteinfo(website)
+    sel = scrapy.Selector(text=response.text)
+    terms = sel.css(
+        "div#card_mini_topkw div.Body > div.Row > div.keyword > span.truncation::text"
+    ).extract()
+    percentages = sel.css(
+        "div#card_mini_topkw div.Body > div.Row > div.metric_one > span.truncation::text"
+    ).extract()
+    top_terms = {
+        term: float(percent.strip("%")) / 100
+        for term, percent in zip(terms, percentages)
+    }
+    return top_terms
+
+
 def _get_siteinfo(website):
     """Returns response object after properly formatting website string."""
     formatted = helpers.format_website_string(website)

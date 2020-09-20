@@ -12,5 +12,6 @@ utility for accessing [alexa site tools](https://www.alexa.com/)
 * **get_similar_sites**: similar websites and overlap scores
 * **get_rank**: alexa rank
 * **get_avg_user_time**: average daily time spent
+* **get_top_search_terms**: top search terms driving traffic
 
 ## [popular articles](https://www.alexa.com/popular-articles)

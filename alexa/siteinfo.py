@@ -12,7 +12,7 @@ def get_competitors(website):
     Args:
         website (string): example - "mysite.com"
     Returns:
-        list of strings, or None: competitor websites.
+        list (string), or None: competitor websites
     """
     response = _get_siteinfo(website)
     sel = scrapy.Selector(text=response.text)
@@ -25,7 +25,7 @@ def get_similar_sites(website):
     Args:
         website (string): example - "mysite.com"
     Returns:
-        dict (string : float): similar websites and corresponding overlap score.
+        dict (string: float): similar websites and corresponding overlap score
     """
     response = _get_siteinfo(website)
     sel = scrapy.Selector(text=response.text)
@@ -37,6 +37,23 @@ def get_similar_sites(website):
     ).extract()
     similar_sites = {site.strip(): overlap for site, overlap in zip(sites, overlaps)}
     return similar_sites
+
+
+def get_rank(website):
+    """Returns alexa rank of given website.
+    Args:
+        website (string): example - "mysite.com"
+    Returns:
+        int: alexa rank
+    """
+    response = _get_siteinfo(website)
+    sel = scrapy.Selector(text=response.text)
+    rank = int(
+        sel.css(
+            "div#card_mini_trafficMetrics div.rankmini-global > div.rankmini-rank::text"
+        ).extract()[-1]
+    )
+    return rank
 
 
 def _get_siteinfo(website):

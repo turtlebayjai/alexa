@@ -10,5 +10,6 @@ utility for accessing [alexa site tools](https://www.alexa.com/)
 ## [site info](https://www.alexa.com/siteinfo)
 * **get_competitors**: competitor websites
 * **get_similar_sites**: similar websites and overlap scores
+* **get_rank**: alexa rank
 
 ## [popular articles](https://www.alexa.com/popular-articles)

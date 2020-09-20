@@ -56,6 +56,24 @@ def get_rank(website):
     return rank
 
 
+def get_avg_user_time(website):
+    """Returns average time in seconds that a visitor spends on the
+        given website each day.
+    Args:
+        website (string): example - "mysite.com"
+    Returns:
+        int: seconds
+    """
+    response = _get_siteinfo(website)
+    sel = scrapy.Selector(text=response.text)
+    time = sel.css(
+        "div#card_mini_trafficMetrics div.rankmini-daily > div.rankmini-rank::text"
+    ).extract_first()
+    mins, secs = time.strip().split(":")
+    seconds = int(mins) * 60 + int(secs)
+    return seconds
+
+
 def _get_siteinfo(website):
     """Returns response object after properly formatting website string."""
     formatted = helpers.format_website_string(website)

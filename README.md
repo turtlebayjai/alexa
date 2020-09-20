@@ -13,5 +13,6 @@ utility for accessing [alexa site tools](https://www.alexa.com/)
 * **get_rank**: alexa rank
 * **get_avg_user_time**: average daily time spent
 * **get_top_search_terms**: top search terms driving traffic
+* **get_top_industry_topics**: top article topics
 
 ## [popular articles](https://www.alexa.com/popular-articles)

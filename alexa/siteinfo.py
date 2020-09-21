@@ -12,12 +12,14 @@ def get_competitors(website):
     Args:
         website (string): example - "mysite.com"
     Returns:
-        list (string), or None: competitor websites
+        list (string): competitor websites
+        (Returns None if website not found)
     """
     response = _get_siteinfo(website)
     sel = scrapy.Selector(text=response.text)
     sites = eval(sel.css("script#competitorsJSON::text").extract_first())
-    return sites.get("competitors")
+    competitors = sites.get("competitors")
+    return competitors if competitors else None
 
 
 def get_similar_sites(website):
@@ -26,6 +28,7 @@ def get_similar_sites(website):
         website (string): example - "mysite.com"
     Returns:
         dict (string: float): similar websites and corresponding overlap score
+        (Returns None if website not found)
     """
     response = _get_siteinfo(website)
     sel = scrapy.Selector(text=response.text)
@@ -36,7 +39,7 @@ def get_similar_sites(website):
         "div#card_mini_audience div.Body > div.Row > div.overlap > span.truncation::text"
     ).extract()
     similar_sites = {site.strip(): overlap for site, overlap in zip(sites, overlaps)}
-    return similar_sites
+    return similar_sites if similar_sites else None
 
 
 def get_rank(website):

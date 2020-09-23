@@ -17,6 +17,7 @@ INPUTS = {
 FUNCS = {
     "get_competitors": siteinfo.get_competitors,
     "get_similar_sites": siteinfo.get_similar_sites,
+    "get_rank": siteinfo.get_rank,
 }
 
 
@@ -50,6 +51,26 @@ class TestGetSimilarSites(unittest.TestCase):
     def test_unformatted_input(self):
         output = FUNCS[self.test](INPUTS["unformatted"])
         self.assertTrue(len(output) > 0)
+
+    def test_bad_input(self):
+        output = FUNCS[self.test](INPUTS["bad"])
+        self.assertEqual(output, None)
+
+    def test_invalid_input(self):
+        output = FUNCS[self.test](INPUTS["invalid"])
+        self.assertEqual(output, None)
+
+
+class TestGetRank(unittest.TestCase):
+    test = "get_rank"
+
+    def test_good_input(self):
+        output = FUNCS[self.test](INPUTS["good"])
+        self.assertTrue(isinstance(output, int))
+
+    def test_unformatted_input(self):
+        output = FUNCS[self.test](INPUTS["unformatted"])
+        self.assertTrue(isinstance(output, int))
 
     def test_bad_input(self):
         output = FUNCS[self.test](INPUTS["bad"])

@@ -51,12 +51,10 @@ def get_rank(website):
     """
     response = _get_siteinfo(website)
     sel = scrapy.Selector(text=response.text)
-    rank = int(
-        sel.css(
-            "div#card_mini_trafficMetrics div.rankmini-global > div.rankmini-rank::text"
-        ).extract()[-1]
-    )
-    return rank
+    rank = sel.css(
+        "div#card_mini_trafficMetrics div.rankmini-global > div.rankmini-rank::text"
+    ).extract()
+    return int(rank[-1]) if rank else None
 
 
 def get_avg_user_time(website):

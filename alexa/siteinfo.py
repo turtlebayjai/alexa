@@ -17,8 +17,8 @@ def get_competitors(website):
     """
     response = _get_siteinfo(website)
     sel = scrapy.Selector(text=response.text)
-    sites = eval(sel.css("script#competitorsJSON::text").extract_first())
-    competitors = sites.get("competitors")
+    sites = sel.css("script#competitorsJSON::text").extract_first()
+    competitors = eval(sites).get("competitors") if sites else None
     return competitors if competitors else None
 
 

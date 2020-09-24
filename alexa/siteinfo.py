@@ -19,7 +19,7 @@ def get_competitors(website):
     sel = scrapy.Selector(text=response.text)
     sites = sel.css("script#competitorsJSON::text").extract_first()
     competitors = eval(sites).get("competitors") if sites else None
-    return competitors if competitors else None
+    return competitors or None
 
 
 def get_similar_sites(website):
@@ -39,7 +39,7 @@ def get_similar_sites(website):
         "div#card_mini_audience div.Body > div.Row > div.overlap > span.truncation::text"
     ).extract()
     similar_sites = {site.strip(): overlap for site, overlap in zip(sites, overlaps)}
-    return similar_sites if similar_sites else None
+    return similar_sites or None
 
 
 def get_rank(website):
@@ -54,7 +54,7 @@ def get_rank(website):
     rank = sel.css(
         "div#card_mini_trafficMetrics div.rankmini-global > div.rankmini-rank::text"
     ).extract()
-    return int(rank[-1]) if rank else None
+    return int(rank[-1]) or None
 
 
 def get_user_time(website):
@@ -70,9 +70,10 @@ def get_user_time(website):
     time = sel.css(
         "div#card_mini_trafficMetrics div.rankmini-daily > div.rankmini-rank::text"
     ).extract_first()
-    mins, secs = time.strip().split(":")
-    seconds = int(mins) * 60 + int(secs)
-    return seconds
+    if time:
+        mins, secs = time.strip().split(":")
+        time = int(mins) * 60 + int(secs)
+    return time or None
 
 
 def get_top_search_terms(website):

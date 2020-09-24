@@ -57,7 +57,7 @@ def get_rank(website):
     return int(rank[-1]) if rank else None
 
 
-def get_avg_user_time(website):
+def get_user_time(website):
     """Returns average time in seconds that a visitor spends on the
         given website each day.
     Args:

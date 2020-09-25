@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO)
 INPUTS = {
     "good": "google.com",
     "unformatted": "htTPs://WWW.GoOgLe.COM",
-    "bad": "https://www.badinput.com",
+    "bad": "https://www.badbadbadbadinput.com",
     "invalid": "invalidinput.invalidinput",
 }
 

@@ -86,7 +86,7 @@ def get_user_time(website):
     return time
 
 
-def get_top_search_terms(website):
+def get_search_terms(website):
     """Returns top search terms driving traffic to the website,
         with corresponding percentage of search traffic from the term.
     Args:

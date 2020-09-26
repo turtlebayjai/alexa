@@ -102,10 +102,12 @@ def get_search_terms(website):
     percentages = sel.css(
         "div#card_mini_topkw div.Body > div.Row > div.metric_one > span.truncation::text"
     ).extract()
-    top_terms = {
-        term: float(percent.strip("%")) / 100
-        for term, percent in zip(terms, percentages)
-    }
+    top_terms = None
+    if terms and percentages:
+        top_terms = {
+            term: float(percent.strip("%")) / 100
+            for term, percent in zip(terms, percentages)
+        }
     return top_terms
 
 

@@ -111,7 +111,7 @@ def get_search_terms(website):
     return top_terms
 
 
-def get_top_industry_topics(website):
+def get_industry_topics(website):
     """Returns top industry topics that this website or competitors
         published articles on.
     Args:
@@ -121,9 +121,12 @@ def get_top_industry_topics(website):
     """
     response = _get_siteinfo(website)
     sel = scrapy.Selector(text=response.text)
-    topics = sel.css(
+    extracted = sel.css(
         "div#card_mini_topics div.TopicList > div.Showme > span::text"
     ).extract()
+    topics = None
+    if extracted:
+        topics = extracted
     return topics
 
 

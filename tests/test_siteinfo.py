@@ -20,6 +20,7 @@ FUNCS = {
     "get_rank": siteinfo.get_rank,
     "get_user_time": siteinfo.get_user_time,
     "get_search_terms": siteinfo.get_search_terms,
+    "get_industry_topics": siteinfo.get_industry_topics,
 }
 
 
@@ -105,6 +106,26 @@ class TestGetUserTime(unittest.TestCase):
 
 class TestGetSearchTerms(unittest.TestCase):
     test = "get_search_terms"
+
+    def test_good_input(self):
+        output = FUNCS[self.test](INPUTS["good"])
+        self.assertTrue(len(output) > 0)
+
+    def test_unformatted_input(self):
+        output = FUNCS[self.test](INPUTS["unformatted"])
+        self.assertTrue(len(output) > 0)
+
+    def test_bad_input(self):
+        output = FUNCS[self.test](INPUTS["bad"])
+        self.assertEqual(output, None)
+
+    def test_invalid_input(self):
+        output = FUNCS[self.test](INPUTS["invalid"])
+        self.assertEqual(output, None)
+
+
+class TestGetIndustryTopics(unittest.TestCase):
+    test = "get_industry_topics"
 
     def test_good_input(self):
         output = FUNCS[self.test](INPUTS["good"])

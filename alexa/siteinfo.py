@@ -121,13 +121,10 @@ def get_industry_topics(website):
     """
     response = _get_siteinfo(website)
     sel = scrapy.Selector(text=response.text)
-    extracted = sel.css(
+    topics = sel.css(
         "div#card_mini_topics div.TopicList > div.Showme > span::text"
     ).extract()
-    topics = None
-    if extracted:
-        topics = extracted
-    return topics
+    return topics or None
 
 
 def _get_siteinfo(website):
